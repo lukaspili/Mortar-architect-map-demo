@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.github.lukaspili.architectmapdemo.mvp.presenter.util.MapPresenter;
-import com.github.lukaspili.architectmapdemo.mvp.presenter.util.MapScopeComponent;
+import com.github.lukaspili.architectmapdemo.mvp.presenter.util.MapStackableComponent;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
 import javax.inject.Inject;
 
 import architect.StackFactory;
-import architect.autostack.DaggerService;
+import architect.robot.DaggerService;
 import autodagger.AutoInjector;
 
 /**
@@ -26,8 +26,8 @@ public class PresentedMapView extends MapView {
     public PresentedMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        Context newContext = StackFactory.createContext(context, new MapPresenter.MapScope());
-        DaggerService.<MapScopeComponent>get(newContext).inject(this);
+        Context newContext = StackFactory.createContext(context, new MapPresenter.MapStackable());
+        DaggerService.<MapStackableComponent>get(newContext).inject(this);
     }
 
     public void getMap(OnMapReadyCallback callback) {

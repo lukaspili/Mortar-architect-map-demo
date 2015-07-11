@@ -6,10 +6,10 @@ import android.view.View;
 
 import com.github.lukaspili.architectmapdemo.R;
 import com.github.lukaspili.architectmapdemo.mvp.presenter.HomePresenter;
-import com.github.lukaspili.architectmapdemo.mvp.presenter.scope.HomeScopeComponent;
+import com.github.lukaspili.architectmapdemo.mvp.presenter.stackable.HomeStackableComponent;
 
-import architect.autostack.DaggerService;
 import architect.commons.view.PresentedFrameLayout;
+import architect.robot.DaggerService;
 import autodagger.AutoInjector;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,7 +29,7 @@ public class HomeView extends PresentedFrameLayout<HomePresenter> {
     public HomeView(Context context) {
         super(context);
 
-        DaggerService.<HomeScopeComponent>get(context).inject(this);
+        DaggerService.<HomeStackableComponent>get(context).inject(this);
         View view = View.inflate(context, R.layout.view_home, this);
         ButterKnife.inject(view);
     }

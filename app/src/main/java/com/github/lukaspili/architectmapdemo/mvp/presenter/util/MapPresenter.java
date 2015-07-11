@@ -12,8 +12,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import javax.inject.Inject;
 
 import architect.NavigatorServices;
-import architect.StackScope;
-import architect.autostack.DaggerService;
+import architect.Stackable;
+import architect.robot.DaggerService;
 import autodagger.AutoComponent;
 import mortar.MortarScope;
 import mortar.ViewPresenter;
@@ -123,12 +123,12 @@ public class MapPresenter extends ViewPresenter<PresentedMapView> implements Act
             target = MapPresenter.class
     )
     @DaggerScope(MapPresenter.class)
-    public static class MapScope implements StackScope {
+    public static class MapStackable implements Stackable {
 
         @Override
-        public StackScope.Services withServices(MortarScope parentScope) {
-            DemoActivityComponent component = NavigatorServices.getService(parentScope, DaggerService.SERVICE_NAME);
-            return new StackScope.Services().with(DaggerService.SERVICE_NAME, DaggerMapScopeComponent.builder()
+        public void configureScope(MortarScope.Builder builder, MortarScope mortarScope) {
+            DemoActivityComponent component = NavigatorServices.getService(mortarScope, DaggerService.SERVICE_NAME);
+            builder.withService(DaggerService.SERVICE_NAME, DaggerMapStackableComponent.builder()
                     .demoActivityComponent(component)
                     .build());
         }

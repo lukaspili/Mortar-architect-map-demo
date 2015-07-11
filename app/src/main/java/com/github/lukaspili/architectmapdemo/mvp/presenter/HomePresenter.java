@@ -6,8 +6,7 @@ import com.github.lukaspili.architectmapdemo.di.DaggerScope;
 import com.github.lukaspili.architectmapdemo.di.FromActivityAutoComponent;
 import com.github.lukaspili.architectmapdemo.mvp.view.HomeView;
 
-import architect.autopath.AutoPath;
-import architect.autostack.AutoStack;
+import architect.robot.AutoStackable;
 import autodagger.AutoComponent;
 import autodagger.AutoExpose;
 import mortar.ViewPresenter;
@@ -15,9 +14,9 @@ import mortar.ViewPresenter;
 /**
  * @author Lukasz Piliszczuk <lukasz.pili@gmail.com>
  */
-@AutoStack(
+@AutoStackable(
         component = @AutoComponent(includes = FromActivityAutoComponent.class),
-        path = @AutoPath(withView = HomeView.class)
+        pathWithView = HomeView.class
 )
 @AutoExpose
 @DaggerScope(HomePresenter.class)

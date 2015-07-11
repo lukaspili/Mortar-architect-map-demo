@@ -6,12 +6,13 @@ import android.view.View;
 
 import com.github.lukaspili.architectmapdemo.R;
 import com.github.lukaspili.architectmapdemo.mvp.presenter.HomeMenuPresenter;
-import com.github.lukaspili.architectmapdemo.mvp.presenter.scope.HomeMenuScope;
-import com.github.lukaspili.architectmapdemo.mvp.presenter.scope.HomeMenuScopeComponent;
+import com.github.lukaspili.architectmapdemo.mvp.presenter.stackable.HomeMapStackable;
+import com.github.lukaspili.architectmapdemo.mvp.presenter.stackable.HomeMenuStackable;
+import com.github.lukaspili.architectmapdemo.mvp.presenter.stackable.HomeMenuStackableComponent;
 
-import architect.StackScope;
-import architect.autostack.DaggerService;
+import architect.Stackable;
 import architect.commons.view.StackedFrameLayout;
+import architect.robot.DaggerService;
 import autodagger.AutoInjector;
 import butterknife.ButterKnife;
 
@@ -26,13 +27,13 @@ public class HomeMenuView extends StackedFrameLayout<HomeMenuPresenter> {
     }
 
     @Override
-    public StackScope getScope() {
-        return new HomeMenuScope();
+    public Stackable getStackable() {
+        return new HomeMenuStackable();
     }
 
     @Override
     public void initWithContext(Context context) {
-        DaggerService.<HomeMenuScopeComponent>get(context).inject(this);
+        DaggerService.<HomeMenuStackableComponent>get(context).inject(this);
 
         View view = View.inflate(context, R.layout.view_home_menu, this);
         ButterKnife.inject(view);

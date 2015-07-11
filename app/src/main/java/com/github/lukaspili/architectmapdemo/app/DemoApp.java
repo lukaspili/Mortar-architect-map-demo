@@ -1,13 +1,13 @@
 package com.github.lukaspili.architectmapdemo.app;
 
+import android.app.Application;
 import android.content.Context;
 
 import com.github.lukaspili.architectmapdemo.BuildConfig;
 import com.github.lukaspili.architectmapdemo.di.AppDependencies;
 import com.github.lukaspili.architectmapdemo.di.DaggerScope;
 
-import architect.autostack.DaggerService;
-import architect.commons.ArchitectApp;
+import architect.robot.DaggerService;
 import autodagger.AutoComponent;
 import autodagger.AutoInjector;
 import dagger.Provides;
@@ -20,16 +20,13 @@ import timber.log.Timber;
 @AutoComponent(superinterfaces = AppDependencies.class, modules = DemoApp.Module.class)
 @DaggerScope(DemoApp.class)
 @AutoInjector
-public class DemoApp extends ArchitectApp {
+public class DemoApp extends Application {
+
+    private MortarScope scope;
 
     @Override
-    protected void configureScope(MortarScope.Builder builder) {
-        DemoAppComponent component = DaggerDemoAppComponent.builder()
-                .module(new Module())
-                .build();
-        component.inject(this);
-
-        builder.withService(DaggerService.SERVICE_NAME, component);
+    public Object getSystemService(String name) {
+        return (scope != null && scope.hasService(name)) ? scope.getService(name) : super.getSystemService(name);
     }
 
     @Override
@@ -40,7 +37,14 @@ public class DemoApp extends ArchitectApp {
             Timber.plant(new Timber.DebugTree());
         }
 
-        DaggerService.<DemoAppComponent>get(this).inject(this);
+        DemoAppComponent component = DaggerDemoAppComponent.builder()
+                .module(new Module())
+                .build();
+        component.inject(this);
+
+        scope = MortarScope.buildRootScope()
+                .withService(DaggerService.SERVICE_NAME, component)
+                .build("Root");
     }
 
     @dagger.Module

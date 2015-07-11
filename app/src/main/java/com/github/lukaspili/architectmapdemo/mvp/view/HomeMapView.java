@@ -6,13 +6,13 @@ import android.view.View;
 
 import com.github.lukaspili.architectmapdemo.R;
 import com.github.lukaspili.architectmapdemo.mvp.presenter.HomeMapPresenter;
-import com.github.lukaspili.architectmapdemo.mvp.presenter.scope.HomeMapScope;
-import com.github.lukaspili.architectmapdemo.mvp.presenter.scope.HomeMapScopeComponent;
+import com.github.lukaspili.architectmapdemo.mvp.presenter.stackable.HomeMapStackable;
+import com.github.lukaspili.architectmapdemo.mvp.presenter.stackable.HomeMapStackableComponent;
 import com.github.lukaspili.architectmapdemo.mvp.view.util.PresentedMapView;
 
-import architect.StackScope;
-import architect.autostack.DaggerService;
+import architect.Stackable;
 import architect.commons.view.StackedFrameLayout;
+import architect.robot.DaggerService;
 import autodagger.AutoInjector;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,13 +31,13 @@ public class HomeMapView extends StackedFrameLayout<HomeMapPresenter> {
     }
 
     @Override
-    public StackScope getScope() {
-        return new HomeMapScope();
+    public Stackable getStackable() {
+        return new HomeMapStackable();
     }
 
     @Override
     public void initWithContext(Context context) {
-        DaggerService.<HomeMapScopeComponent>get(context).inject(this);
+        DaggerService.<HomeMapStackableComponent>get(context).inject(this);
         View view = View.inflate(context, R.layout.view_home_map, this);
         ButterKnife.inject(view);
     }

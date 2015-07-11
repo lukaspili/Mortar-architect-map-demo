@@ -8,14 +8,14 @@ import com.github.lukaspili.architectmapdemo.mvp.view.HomeMenuView;
 
 import javax.inject.Inject;
 
-import architect.autostack.AutoStack;
+import architect.robot.AutoStackable;
 import autodagger.AutoComponent;
 import mortar.ViewPresenter;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.pili@gmail.com>
  */
-@AutoStack(
+@AutoStackable(
         component = @AutoComponent(includes = FromHomeAutoComponent.class)
 )
 @DaggerScope(HomeMenuPresenter.class)

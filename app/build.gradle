@@ -50,16 +50,14 @@ dependencies {
     compile 'com.github.lukaspili.autodagger2:autodagger2:1.1'
     apt 'com.github.lukaspili.autodagger2:autodagger2-compiler:1.1'
 
-    def architect_version = '0.10-SNAPSHOT'
+    def architect_version = '0.13-SNAPSHOT'
     compile 'com.github.lukaspili.mortar-architect:architect:' + architect_version
     compile 'com.github.lukaspili.mortar-architect:commons:' + architect_version
-    compile 'com.github.lukaspili.mortar-architect:autopath:' + architect_version
-    apt 'com.github.lukaspili.mortar-architect:autopath-compiler:' + architect_version
-    compile 'com.github.lukaspili.mortar-architect:autoscope:' + architect_version
-    apt 'com.github.lukaspili.mortar-architect:autoscope-compiler:' + architect_version
+    compile 'com.github.lukaspili.mortar-architect:robot:' + architect_version
+    apt 'com.github.lukaspili.mortar-architect:robot-compiler:' + architect_version
 
-    compile 'com.hannesdorfmann.parcelableplease:annotation:1.0.1'
-    apt 'com.hannesdorfmann.parcelableplease:processor:1.0.1'
+    compile 'org.parceler:parceler-api:1.0.1'
+    apt 'org.parceler:parceler:1.0.1'
 
     compile 'org.apache.commons:commons-lang3:3.3.2'
 }
